@@ -1,6 +1,6 @@
 #!/bin/bash
 nano /etc/selinux/config
-sudo dnf install wget unzip git httpd -y
+sudo dnf install wget unzip httpd -y
 sudo systemctl enable httpd
 sudo systemctl enable httpd
 sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
