@@ -9,8 +9,7 @@ Default Gateway: 10.0.5.2
 
 Don't forget to add PTR records in ad02!
 
-dnf install wget -y
-dnf install git -y
+dnf install wget git -y
 git clone https://github.com/rosepheobieshea/asses_scripts
 ```
 **2. Join to AD Domain with Realm** \
