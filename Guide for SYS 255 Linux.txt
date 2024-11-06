@@ -1,0 +1,69 @@
+***Guide for SYS-255 Linux Assesment***
+
+**1. Setup Networking + prereqs** \
+```
+Open nmtui
+IP addr: 10.0.5.11
+DNS: 10.0.5.6 (ad02)
+Default Gateway: 10.0.5.2
+
+Don't forget to add PTR records in ad02!
+
+dnf install wget -y
+dnf install git -y
+git clone https://github.com/rosepheobieshea/asses_scripts
+```
+**2. Join to AD Domain with Realm** \
+```
+dnf install realmd samba samba-common oddjob oddjob-mkhomedir sssd -y
+realm join --user=rose.davis-adm@ROSE.LOCAL rose.local
+realm list (to confirm it worked)
+login with rose.davis-adm@rose.local
+sudo -i
+```
+**3. Installing + Configuring Apache** \
+```
+dnf install httpd
+systemctl start httpd
+systemctl enable httpd
+firewall-cmd --add-service=http --permanent
+firewall-cmd --add-service=https --permanent
+firdwall-cmd --reload
+```
+**4. Installing + Configuring WordPress** \
+```
+Install database (Mariadb)
+dnf install mariadb-server
+systemctl start mariadb
+systemctl enable mariadb
+mysql_secure_installation (create password)
+
+Install PHP and tools
+dnf install php php-mysqlnd php-gd php-xml php-mbstring
+systemctl restart httpd
+
+Install Wordpress
+wget https://wordpress.org/latest.tar.gz
+tar -xzvf latest.tar.gz
+cp -r wordpress/* /var/www/html/
+chown -R apache:apache /var/www/html/
+chmod -R 755 /var/www/html/
+
+Configure Database
+mysql -u root -p
+CREATE DATABASE IT4U;
+CREATE USER 'rose'@'localhost' IDENTIFIED BY 'Pass123';
+GRANT ALL PRIVILEGES ON IT4U.* TO 'rose'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+Configure WordPress
+cd /var/www/html/
+mv wp-config-sample.php wp-config.php
+nano wp-config.php
+
+in here edit the follwing lines to match
+define ('DB_NAME', 'IT4U');
+define ('DB_USER', 'rose');
+define ('DB_PASSWORD', 'Pass123');
+```
