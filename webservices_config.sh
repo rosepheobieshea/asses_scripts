@@ -1,4 +1,5 @@
 #!/bin/bash
+dnf install wget -y
 dnf install httpd -y
 systemctl start httpd
 systemctl enable httpd
