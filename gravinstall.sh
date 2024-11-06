@@ -1,11 +1,11 @@
 #!/bin/bash
 nano /etc/selinux/config
-sudo dnf install wget unzip httpd -y
+sudo dnf install wget unzip httpd
 sudo systemctl enable httpd
-sudo systemctl enable httpd
-sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-sudo dnf module enable php:remi-7.4 -y
-sudo dnf install php php-cli php-fpm php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json -y
+sudo systemctl start httpd
+sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+sudo dnf module enable php:remi-7.4
+sudo dnf install php php-cli php-fpm php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json
 cd /var/www/html
 sudo wget getgrav.org/download/core/grav-admin/1.7.0
 sudo unzip 1.7.0
